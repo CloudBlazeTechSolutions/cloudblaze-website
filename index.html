@@ -1537,26 +1537,27 @@
                 <h2 class="section-title">Start Your SAP Journey</h2>
                 <p class="section-desc">Ready to transform your business? Let's discuss how we can help you.</p>
             </div>
-            <form class="contact-form">
+            <form class="contact-form" id="contactForm">
+                <div id="formMessage" style="display: none; padding: 1rem; border-radius: 10px; margin-bottom: 1rem; text-align: center; font-weight: 600;"></div>
                 <div class="form-grid">
-                    <div class="form-group"><label>Your Name</label><input type="text" placeholder="John Doe" required>
+                    <div class="form-group"><label>Your Name</label><input type="text" name="name" id="name" placeholder="John Doe" required>
                     </div>
-                    <div class="form-group"><label>Email Address</label><input type="email"
+                    <div class="form-group"><label>Email Address</label><input type="email" name="email" id="email"
                             placeholder="john@company.com" required></div>
-                    <div class="form-group"><label>Company</label><input type="text" placeholder="Your Company"></div>
-                    <div class="form-group"><label>Service Interested In</label><select>
+                    <div class="form-group"><label>Company</label><input type="text" name="company" id="company" placeholder="Your Company"></div>
+                    <div class="form-group"><label>Service Interested In</label><select name="service" id="service">
                             <option value="">Select a service</option>
-                            <option value="btp">SAP BTP Development</option>
-                            <option value="s4hana">S/4HANA Implementation</option>
-                            <option value="mobile">Mobile Development</option>
-                            <option value="integration">Integration Services</option>
-                            <option value="migration">Cloud Migration</option>
-                            <option value="consulting">Consulting</option>
+                            <option value="SAP BTP Development">SAP BTP Development</option>
+                            <option value="S/4HANA Implementation">S/4HANA Implementation</option>
+                            <option value="Mobile Development">Mobile Development</option>
+                            <option value="Integration Services">Integration Services</option>
+                            <option value="Cloud Migration">Cloud Migration</option>
+                            <option value="Consulting">Consulting</option>
                         </select></div>
-                    <div class="form-group full-width"><label>Project Details</label><textarea
-                            placeholder="Tell us about your project requirements..."></textarea></div>
+                    <div class="form-group full-width"><label>Project Details</label><textarea name="message" id="message"
+                            placeholder="Tell us about your project requirements..." required></textarea></div>
                 </div>
-                <div class="form-submit"><button type="submit" class="btn-primary">Send Message</button></div>
+                <div class="form-submit"><button type="submit" class="btn-primary" id="submitBtn">Send Message</button></div>
             </form>
             <div class="contact-info">
                 <div class="contact-item">
@@ -1631,7 +1632,103 @@
     </footer>
 
     <script>
-        const fadeElements = document.querySelectorAll('.fade-in'); const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible') } }) }, { threshold: 0.1 }); fadeElements.forEach(el => observer.observe(el)); document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }) } }) }); window.addEventListener('scroll', () => { const nav = document.querySelector('nav'); if (window.scrollY > 50) { nav.classList.add('scrolled') } else { nav.classList.remove('scrolled') } });
+        // Fade-in animations
+        const fadeElements = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible')
+                }
+            })
+        }, { threshold: 0.1 });
+        fadeElements.forEach(el => observer.observe(el));
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                }
+            })
+        });
+
+        // Navigation scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled')
+            } else {
+                nav.classList.remove('scrolled')
+            }
+        });
+
+        // Contact Form Handling
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+        const submitBtn = document.getElementById('submitBtn');
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                company: document.getElementById('company').value,
+                service: document.getElementById('service').value,
+                message: document.getElementById('message').value
+            };
+
+            // Disable submit button and show loading state
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            try {
+                const response = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Show success message
+                    formMessage.style.display = 'block';
+                    formMessage.style.backgroundColor = '#d1fae5';
+                    formMessage.style.color = '#065f46';
+                    formMessage.textContent = result.message;
+
+                    // Reset form
+                    contactForm.reset();
+                } else {
+                    // Show error message
+                    formMessage.style.display = 'block';
+                    formMessage.style.backgroundColor = '#fee2e2';
+                    formMessage.style.color = '#991b1b';
+                    formMessage.textContent = result.message;
+                }
+            } catch (error) {
+                // Show error message
+                formMessage.style.display = 'block';
+                formMessage.style.backgroundColor = '#fee2e2';
+                formMessage.style.color = '#991b1b';
+                formMessage.textContent = 'Failed to send message. Please try again or email us directly at sales@cloudblazetech.com';
+            } finally {
+                // Re-enable submit button
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+
+                // Hide message after 5 seconds
+                setTimeout(() => {
+                    formMessage.style.display = 'none';
+                }, 5000);
+            }
+        });
     </script>
 </body>
 
