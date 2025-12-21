@@ -95,9 +95,15 @@ module.exports = async (req, res) => {
 
     } catch (error) {
         console.error('Error sending email:', error);
+        console.error('Error details:', {
+            message: error.message,
+            code: error.code,
+            response: error.response
+        });
         return res.status(500).json({
             success: false,
-            message: 'Failed to send message. Please try again later.'
+            message: 'Failed to send message. Please try again later.',
+            error: process.env.NODE_ENV === 'development' ? error.message : undefined
         });
     }
 };
