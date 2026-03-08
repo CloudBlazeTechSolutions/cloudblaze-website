@@ -870,6 +870,136 @@
             border-radius: 50px
         }
 
+        .products {
+            padding: 7rem 2rem;
+            background: var(--white)
+        }
+
+        .product-showcase {
+            max-width: 900px;
+            margin: 0 auto
+        }
+
+        .product-info {
+            text-align: center;
+            margin-bottom: 2.5rem
+        }
+
+        .product-info h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem
+        }
+
+        .product-info p {
+            color: var(--gray-500);
+            font-size: 1rem;
+            max-width: 600px;
+            margin: 0 auto 1.25rem
+        }
+
+        .product-info .app-badges {
+            margin-top: 1rem
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200)
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s ease
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem
+        }
+
+        .carousel-slide img {
+            max-width: 100%;
+            max-height: 480px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            object-fit: contain
+        }
+
+        .carousel-slide .placeholder-slide {
+            width: 100%;
+            height: 360px;
+            background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-400);
+            font-size: 1.1rem;
+            font-weight: 600
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            color: var(--gray-700);
+            transition: all 0.3s ease;
+            z-index: 2
+        }
+
+        .carousel-btn:hover {
+            background: var(--primary-blue);
+            color: var(--white);
+            border-color: var(--primary-blue)
+        }
+
+        .carousel-btn.prev {
+            left: 12px
+        }
+
+        .carousel-btn.next {
+            right: 12px
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            padding: 1.25rem 0
+        }
+
+        .carousel-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--gray-300);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease
+        }
+
+        .carousel-dot.active {
+            background: var(--primary-blue);
+            transform: scale(1.2)
+        }
+
         .about {
             padding: 7rem 2rem;
             background: var(--gray-50)
@@ -1331,6 +1461,7 @@
                 </svg></a>
             <ul class="nav-links">
                 <li><a href="#services">Services</a></li>
+                <li><a href="#products">Products</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul><a href="#contact" class="nav-cta">Get in Touch</a>
@@ -1506,6 +1637,44 @@
         </div>
     </section>
 
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header"><span class="section-tag">Our Products</span>
+                <h2 class="section-title">Upcoming Products</h2>
+                <p class="section-desc">Tools we're building to simplify SAP workflows.</p>
+            </div>
+            <div class="product-showcase fade-in">
+                <div class="product-info">
+                    <h3>CloudBlaze Timesheet</h3>
+                    <p>A smart timesheet solution for SAP consultants and teams. Track hours, manage projects, and generate reports — all in one place.</p>
+                    <div class="app-badges">
+                        <span class="badge-coming-soon">Coming Soon</span>
+                        <span class="badge-platform"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Web App</span>
+                    </div>
+                </div>
+                <div class="carousel" id="timesheetCarousel">
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide">
+                            <div class="placeholder-slide">Screenshot 1 — Dashboard</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="placeholder-slide">Screenshot 2 — Time Entry</div>
+                        </div>
+                        <div class="carousel-slide">
+                            <div class="placeholder-slide">Screenshot 3 — Reports</div>
+                        </div>
+                    </div>
+                    <button class="carousel-btn prev" onclick="moveCarousel(-1)" aria-label="Previous slide">&#8249;</button>
+                    <button class="carousel-btn next" onclick="moveCarousel(1)" aria-label="Next slide">&#8250;</button>
+                    <div class="carousel-dots" id="carouselDots">
+                        <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+                        <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
+                        <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="about" id="about">
         <div class="about-container">
@@ -1658,6 +1827,30 @@
             })
         }, { threshold: 0.1 });
         fadeElements.forEach(el => observer.observe(el));
+
+        // Carousel
+        let currentSlide = 0;
+        const track = document.getElementById('carouselTrack');
+        const dots = document.querySelectorAll('.carousel-dot');
+        const totalSlides = dots.length;
+
+        function moveCarousel(dir) {
+            currentSlide = (currentSlide + dir + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        function updateCarousel() {
+            track.style.transform = 'translateX(-' + (currentSlide * 100) + '%)';
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === currentSlide));
+        }
+
+        // Auto-advance carousel every 5 seconds
+        setInterval(() => moveCarousel(1), 5000);
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
