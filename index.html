@@ -931,19 +931,6 @@
             object-fit: contain
         }
 
-        .carousel-slide .placeholder-slide {
-            width: 100%;
-            height: 360px;
-            background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray-400);
-            font-size: 1.1rem;
-            font-weight: 600
-        }
-
         .carousel-btn {
             position: absolute;
             top: 50%;
@@ -1645,8 +1632,8 @@
             </div>
             <div class="product-showcase fade-in">
                 <div class="product-info">
-                    <h3>CloudBlaze Timesheet</h3>
-                    <p>A smart timesheet solution for SAP consultants and teams. Track hours, manage projects, and generate reports — all in one place.</p>
+                    <h3>TimeTrack Pro</h3>
+                    <p>A complete workforce management solution for SAP consultants and teams. Track timesheets, manage projects, monitor contracts, handle absences, and generate reports — all in one place.</p>
                     <div class="app-badges">
                         <span class="badge-coming-soon">Coming Soon</span>
                         <span class="badge-platform"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Web App</span>
@@ -1655,21 +1642,37 @@
                 <div class="carousel" id="timesheetCarousel">
                     <div class="carousel-track" id="carouselTrack">
                         <div class="carousel-slide">
-                            <div class="placeholder-slide">Screenshot 1 — Dashboard</div>
+                            <img src="images/timesheet-dashboard.png" alt="TimeTrack Pro — Dashboard with KPIs, contractor overview, and weekly charts" loading="lazy">
                         </div>
                         <div class="carousel-slide">
-                            <div class="placeholder-slide">Screenshot 2 — Time Entry</div>
+                            <img src="images/timesheet-projects.png" alt="TimeTrack Pro — Project allocation with progress tracking" loading="lazy">
                         </div>
                         <div class="carousel-slide">
-                            <div class="placeholder-slide">Screenshot 3 — Reports</div>
+                            <img src="images/timesheet-employees.png" alt="TimeTrack Pro — Workforce overview with employee and contractor management" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/timesheet-timesheets.png" alt="TimeTrack Pro — Weekly timesheet entry with project hours" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/timesheet-absences.png" alt="TimeTrack Pro — Absence request with calendar view" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/timesheet-reports.png" alt="TimeTrack Pro — Report generation for time, projects, and contracts" loading="lazy">
+                        </div>
+                        <div class="carousel-slide">
+                            <img src="images/timesheet-settings.png" alt="TimeTrack Pro — Application settings" loading="lazy">
                         </div>
                     </div>
                     <button class="carousel-btn prev" onclick="moveCarousel(-1)" aria-label="Previous slide">&#8249;</button>
                     <button class="carousel-btn next" onclick="moveCarousel(1)" aria-label="Next slide">&#8250;</button>
                     <div class="carousel-dots" id="carouselDots">
-                        <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
-                        <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Slide 2"></button>
-                        <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Slide 3"></button>
+                        <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Dashboard"></button>
+                        <button class="carousel-dot" onclick="goToSlide(1)" aria-label="Projects"></button>
+                        <button class="carousel-dot" onclick="goToSlide(2)" aria-label="Employees"></button>
+                        <button class="carousel-dot" onclick="goToSlide(3)" aria-label="Timesheets"></button>
+                        <button class="carousel-dot" onclick="goToSlide(4)" aria-label="Absences"></button>
+                        <button class="carousel-dot" onclick="goToSlide(5)" aria-label="Reports"></button>
+                        <button class="carousel-dot" onclick="goToSlide(6)" aria-label="Settings"></button>
                     </div>
                 </div>
             </div>
